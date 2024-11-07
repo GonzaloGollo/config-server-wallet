@@ -1,0 +1,19 @@
+#Configuracion del servicio
+spring.application.name=user-service
+server.port=8081
+
+#Configuracion de la info en actuator del servicio
+management.endpoint.info.enabled=true
+management.endpoints.web.exposure.include=health,info
+management.info.env.enabled=true
+
+info.app.name=User-Service
+info.app.description=microservicio de User Service en Github
+info.app.version=1.0.0
+
+eureka.client.serviceUrl.defaultZone= http://eureka-server:8761/eureka
+eureka.instance.statusPageUrlPath=http://eureka-server:8081/actuator/info
+eureka.instance.healthCheckUrlPath=http://eureka-server:8081/actuator/health
+
+#Traceo
+management.tracing.sampling.probability=1.0
