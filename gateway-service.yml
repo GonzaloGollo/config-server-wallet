@@ -1,16 +1,16 @@
 spring:
- application:
-  name: gateway-service
- cloud:
-  config:
-   discovery:
-    enable: true
-    serviceId: config-server
-  gateway:
-   routes:
-    - id: user-service
-      uri: http://localhost:8084/
-      predicates:
-        - Path= /user
+  application:
+    name: gateway-service
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        serviceId: config-server
+    gateway:
+      routes:
+        - id: user-service
+          uri: http://localhost:8084
+          predicates:
+            - Path=/user/**
 server:
- port: 8085
+  port: 8085
