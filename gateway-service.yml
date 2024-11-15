@@ -12,6 +12,8 @@ spring:
           uri: http://localhost:8084
           predicates:
             - Path=/user/**
+          filters:
+            - AddResponseHeader=X-Response-from, gateway 
 server:
   port: 8085
 eureka:
