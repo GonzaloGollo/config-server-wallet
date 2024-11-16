@@ -13,7 +13,8 @@ spring:
           predicates:
             - Path=/user/**
           filters:
-            - AddResponseHeader=X-Response-from, gateway 
+            - AddResponseHeader=X-Response-from, gateway
+            - AddResponseHeader=X-Response-Red, Blue
 server:
   port: 8085
 eureka:
