@@ -3,10 +3,10 @@ spring:
     name: gateway-service
     description: microservicio de Gateway desde Github
   security:
-   oauth2:
-    resourceserver:
-     jwt:
-      issuer-uri: http://localhost:8080/realms/dh
+    oauth2:
+      resourceserver:
+       jwt:
+       issuer-uri: http://localhost:8080/realms/dh
   cloud:
     config:
       discovery:
