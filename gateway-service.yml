@@ -21,15 +21,18 @@ spring:
           filters:
             - AddResponseHeader=X-Response-from, gateway
             - AddResponseHeader=X-Response-Red, Blue
+
 server:
   port: 8085
+
 endpoints:
   web:
     exposure:
       include: health,info
+
 info:
   env:
-   enabled: true
+    enabled: true
 
 eureka:
   instance:
