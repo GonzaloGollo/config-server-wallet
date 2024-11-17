@@ -21,23 +21,26 @@ spring:
           filters:
             - AddResponseHeader=X-Response-from, gateway
             - AddResponseHeader=X-Response-Red, Blue
-
 server:
   port: 8085
-
-endpoints:
-  web:
-    exposure:
-      include: health,info
-
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+  info:
+    env:
+      enabled: true
 info:
-  env:
-    enabled: true
-
+  app:
+    name: Gateway
+    description: API gateway
+    version: 1.0.0
 eureka:
   instance:
+    hostname: localhost
     statusPageUrlPath: http://localhost:8085/actuator/info
     healthCheckUrlPath: http://localhost:8085/actuator/health
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://eureka-server:8761/eureka/
