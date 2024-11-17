@@ -6,7 +6,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/dh
+          issuer-uri: http://localhost:8080/realms/Desafio3
   cloud:
     config:
       discovery:
