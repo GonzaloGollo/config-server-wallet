@@ -13,8 +13,6 @@ spring:
         enabled: true
         serviceId: config-server
     gateway:
-      default-filters:
-       - TokenRelay=
       routes:
         - id: user-service
           uri: http://localhost:8084
