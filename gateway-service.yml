@@ -23,6 +23,14 @@ spring:
             - AddResponseHeader=X-Response-Red, Blue
 server:
   port: 8085
+endpoints:
+  web:
+    exposure:
+      include: health,info
+info:
+  env:
+   enabled: true
+
 eureka:
   instance:
     statusPageUrlPath: http://localhost:8085/actuator/info
