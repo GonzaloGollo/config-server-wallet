@@ -9,20 +9,6 @@ spring:
       discovery:
         enable: true
         serviceId: config-server
-#  security:
-#    oauth2:
-#      client:
-#        provider:
-#          api-gateway:
-#            issuer-uri: http://localhost:8080/realms/spring-boot-ream-dev
-#        registration:
-#          api-gateway:
-#            provider: api-gateway  # quien es el provider de oauth2.0 y openid
-#            scope: openid
-#            client-id: api-gateway-client
-#            client-secret: UzXEFxIOtS6rMIXhH2D39XtP6tnE1FAR
-#            authorization-grant-type: authorization_code
-#            redirect-uri: http://localhost:9090/login/oauth2/code/keycloak
     gateway:
       default-filters:
         - TokenRelay=
