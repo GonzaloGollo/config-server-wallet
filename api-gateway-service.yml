@@ -1,6 +1,6 @@
 spring:
   application:
-    name: api-gateway
+    name: api-gateway-service
     description: microservicio de Gateway desde Github
   config:
     import: "optional:configserver:"
