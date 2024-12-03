@@ -42,34 +42,6 @@ spring:
           client-secret: hQenC95S3SwPi3V3pW5pBAIAoL284HDc
           authorization-grant-type: authorization_code
           redirect-uri: http://localhost:9090/login/oauth2/code/keycloak
-#      default-filters:
-#        - TokenRelay=
-#      globalcors:
-#        corsConfigurations:
-#          '[/**]':
-#            allowedOrigins: "http://localhost:3000"
-#            allowedMethods:
-#              - GET
-#              - POST
-#              - PUT
-#              - PATCH
-#              - DELETE
-#              - OPTIONS
-#            allowedHeaders:
-#              - Origin
-#              - X-Requested-With
-#              - Content-Type
-#              - Accept
-#              - Authorization
-#            allowCredentials: true
-#            maxAge: 3600
-
-
-#jwt:
-#  auth:
-#    converter:
-#      resource-id: spring-boot-ream-dev
-#      principle-attribute: preferred_username
 
 server:
   port: 8085
@@ -82,7 +54,6 @@ logging:
         web: DEBUG
       keycloak: DEBUG
 
-# Eureka Configuration (Without Docker)
 eureka:
   instance:
     hostname: localhost
@@ -91,6 +62,7 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+
 management:
   endpoints:
     web:
@@ -99,6 +71,7 @@ management:
   info:
     env:
       enabled: true
+
 info:
   app:
     name: Gateway
