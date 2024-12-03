@@ -12,7 +12,7 @@ spring:
             client-id: api-gateway-client  # cliente que hicimos para el cliente feign reino
             client-secret: hQenC95S3SwPi3V3pW5pBAIAoL284HDc
             authorization-grant-type: authorization_code # tipo de auth para poder autorizar a un user
-            redirect-uri: http://localhost:9090/login/oauth2/code/keycloak  #  redireccion de login va a ser el puerto en el que tengamos levantado el api-gateway
+            redirect-uri: http://localhost:8080/login/oauth2/code/keycloak  #  redireccion de login va a ser el puerto en el que tengamos levantado el api-gateway
   cloud:
     gateway:
       default-filters:
