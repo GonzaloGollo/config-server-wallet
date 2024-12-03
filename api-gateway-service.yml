@@ -3,24 +3,24 @@ spring:
     oauth2:
       client:
         provider:
-          api-gateway-client:   #  nombre del proveedor de la registracion
-            issuer-uri: http://localhost:8080/realms/spring-boot-ream-dev  # direccion del reino
+          api-gateway-client:
+            issuer-uri: http://localhost:8080/realms/spring-boot-ream-dev
         registration:
           api-gateway-client:
-            provider: api-gateway-client #  nombre del proveedor de la registracion
+            provider: api-gateway-client
             scope: openid
-            client-id: api-gateway-client  # cliente que hicimos para el cliente feign reino
+            client-id: api-gateway-client
             client-secret: hQenC95S3SwPi3V3pW5pBAIAoL284HDc
-            authorization-grant-type: authorization_code # tipo de auth para poder autorizar a un user
-            redirect-uri: http://localhost:8080/login/oauth2/code/keycloak  #  redireccion de login va a ser el puerto en el que tengamos levantado el api-gateway
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8080/login/oauth2/code/keycloak
   cloud:
     gateway:
       default-filters:
-        - TokenRelay  # agregamos un tokenrelay para que en caso de  q se autentique un user se lo reenvie a la direccion donde indique el routes- id - uri en este caso users-service
+        - TokenRelay
       routes:
-        - id: SpringBookKeycloak # nombre q le ponemos al filtro
-          uri: lb://SpringBookKeycloak  # redireccion al servicio
-          predicates: # que debe identificarse en la ruta q recibimos, para identificar q debe activarse esta ruta
+        - id: SpringBookKeycloak
+          uri: lb://SpringBookKeycloak
+          predicates:
             - Path=/keycloak/**
         - id: Accounts
           uri: http://localhost:8086/account/
@@ -33,3 +33,10 @@ spring:
 server:
   port: 8085
 
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+        web: DEBUG
+      keycloak: DEBUG
