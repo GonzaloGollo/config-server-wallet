@@ -1,17 +1,22 @@
 spring:
-  application:
-    name: api-gateway-service
-    description: microservicio de Gateway desde Github
-  config:
-    import: "optional:configserver:"
+  security:
+    oauth2:
+      client:
+        provider:
+          api-gateway-client:   #  nombre del proveedor de la registracion
+            issuer-uri: http://localhost:8080/realms/spring-boot-ream-dev  # direccion del reino
+        registration:
+          api-gateway-client:
+            provider: api-gateway-client #  nombre del proveedor de la registracion
+            scope: openid
+            client-id: api-gateway-client  # cliente que hicimos para el cliente feign reino
+            client-secret: hQenC95S3SwPi3V3pW5pBAIAoL284HDc
+            authorization-grant-type: authorization_code # tipo de auth para poder autorizar a un user
+            redirect-uri: http://localhost:9090/login/oauth2/code/keycloak  #  redireccion de login va a ser el puerto en el que tengamos levantado el api-gateway
   cloud:
-    config:
-      discovery:
-        enable: true
-        serviceId: config-server
     gateway:
       default-filters:
-        - TokenRelay=
+        - TokenRelay  # agregamos un tokenrelay para que en caso de  q se autentique un user se lo reenvie a la direccion donde indique el routes- id - uri en este caso users-service
       routes:
         - id: SpringBookKeycloak # nombre q le ponemos al filtro
           uri: lb://SpringBookKeycloak  # redireccion al servicio
@@ -25,55 +30,96 @@ spring:
           uri: lb://payment-service
           predicates:
             - Path=/payment/**
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8080/realms/spring-boot-ream-dev
-          jwk-set-uri: http://localhost:8080/realms/spring-boot-ream-dev/protocol/openid-connect/certs
-      client:
-        provider:
-          api-gateway:
-            issuer-uri: http://localhost:8080/realms/spring-boot-ream-dev
-        api-gateway:
-          provider: api-gateway  # quien es el provider de oauth2.0 y openid
-          scope: openid
-          client-id: api-gateway-client
-          client-secret: hQenC95S3SwPi3V3pW5pBAIAoL284HDc
-          authorization-grant-type: authorization_code
-          redirect-uri: http://localhost:9090/login/oauth2/code/keycloak
-
 server:
   port: 8085
 
+
 logging:
-  level:
-    org:
-      springframework:
-        security: DEBUG
-        web: DEBUG
-      keycloak: DEBUG
+    level:
+        org:
+            springframework:
+                security: DEBUG
+                web: DEBUG
+                keycloak: DEBUG
 
-eureka:
-  instance:
-    hostname: localhost
-    statusPageUrlPath: http://localhost:${server.port}/actuator/info
-    healthCheckUrlPath: http://localhost:${server.port}/actuator/health
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health, info
-  info:
-    env:
-      enabled: true
 
-info:
-  app:
-    name: Gateway
-    description: API gateway desde Github
-    version: 1.0.0
+#spring:
+#  application:
+#    name: api-gateway-service
+#    description: microservicio de Gateway desde Github
+#  config:
+#    import: "optional:configserver:"
+#  cloud:
+#    config:
+#      discovery:
+#        enable: true
+#        serviceId: config-server
+#    gateway:
+#      default-filters:
+#        - TokenRelay=
+#      routes:
+#        - id: SpringBookKeycloak # nombre q le ponemos al filtro
+#          uri: lb://SpringBookKeycloak  # redireccion al servicio
+#          predicates: # que debe identificarse en la ruta q recibimos, para identificar q debe activarse esta ruta
+#            - Path=/keycloak/**
+#        - id: Accounts
+#          uri: http://localhost:8086/account/
+#          predicates:
+#            - Path=/account/**
+#        - id: Payments
+#          uri: lb://payment-service
+#          predicates:
+#            - Path=/payment/**
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          issuer-uri: http://localhost:8080/realms/spring-boot-ream-dev
+#          jwk-set-uri: http://localhost:8080/realms/spring-boot-ream-dev/protocol/openid-connect/certs
+#      client:
+#        provider:
+#          api-gateway:
+#            issuer-uri: http://localhost:8080/realms/spring-boot-ream-dev
+#        api-gateway:
+#          provider: api-gateway  # quien es el provider de oauth2.0 y openid
+#          scope: openid
+#          client-id: api-gateway-client
+#          client-secret: hQenC95S3SwPi3V3pW5pBAIAoL284HDc
+#          authorization-grant-type: authorization_code
+#          redirect-uri: http://localhost:9090/login/oauth2/code/keycloak
+#
+#server:
+#  port: 8085
+#
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        security: DEBUG
+#        web: DEBUG
+#      keycloak: DEBUG
+#
+#eureka:
+#  instance:
+#    hostname: localhost
+#    statusPageUrlPath: http://localhost:${server.port}/actuator/info
+#    healthCheckUrlPath: http://localhost:${server.port}/actuator/health
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka/
+#
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: health, info
+#  info:
+#    env:
+#      enabled: true
+#
+#info:
+#  app:
+#    name: Gateway
+#    description: API gateway
+#    version: 1.0.0
