@@ -16,7 +16,7 @@ spring:
   cloud:
     gateway:
       default-filters:
-        - TokenRelay
+        - TokenRelay=
       routes:
         - id: SpringBookKeycloak
           uri: lb://SpringBookKeycloak
